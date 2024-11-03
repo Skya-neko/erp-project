@@ -1,19 +1,35 @@
 import React, { useState } from 'react';
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
+import { execLogin } from "../components/LoginApi";
+import UserContext from "../contexts/UserContext";
 
-const LoginPage = () => {
-    const [email, setEmail] = useState('');
+function LoginPage() {
+    const [account, setAccount] = useState('');
+    const { setAuthStatus, userInfo, setUserInfo, setUserToken } = React.useContext(UserContext);
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
 
-        // 模擬登入邏輯
-        if (email === 'test@example.com' && password === 'password') {
-            alert('登入成功');
-        } else {
-            setError('無效的電子郵件或密碼');
+
+    const login = async (event) => {
+        // Validate
+        if (account === "" || password === "") {
+            return;
+        }
+        console.log(account, password);
+        const data = await execLogin(account, password);
+        console.log(data)
+
+        if (data.token) {
+            setAuthStatus(1);
+            setUserToken(data.token);
+            sessionStorage.setItem("ERP_TOKEN", data.token);
+        }
+
+        if (data.userInfo) {
+
+            sessionStorage.setItem("userInfo", JSON.stringify(data.userInfo));
+            setUserInfo(data.userInfo);
         }
     };
 
@@ -30,18 +46,18 @@ const LoginPage = () => {
                 <Typography component="h1" variant="h5">
                     登入
                 </Typography>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={login} noValidate sx={{ mt: 1 }}>
                     <TextField
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email 地址"
-                        name="email"
-                        autoComplete="email"
+                        id="account"
+                        label="帳號"
+                        name="account"
+                        autoComplete="account"
                         autoFocus
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={account}
+                        onChange={(e) => setAccount(e.target.value)}
                     />
                     <TextField
                         margin="normal"
@@ -65,6 +81,7 @@ const LoginPage = () => {
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
+                        onClick={login}
                     >
                         登入
                     </Button>
@@ -73,5 +90,8 @@ const LoginPage = () => {
         </Container>
     );
 };
+
+
+
 
 export default LoginPage;
