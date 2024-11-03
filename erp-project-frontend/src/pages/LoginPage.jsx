@@ -12,6 +12,7 @@ function LoginPage() {
 
 
     const login = async (event) => {
+        event.preventDefault(); // 防止表單提交，避免 URL 顯示帳號密碼
         // Validate
         if (account === "" || password === "") {
             return;
