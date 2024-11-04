@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.demo.springboot.dao.ClientDao">
 
-    <resultMap id="ClientResultMap" type="com.demo.springboot.dao.model.Client">
+    <resultMap id="ClientResultMap" type="com.demo.springboot.entity.Client">
         <result property="username" column="username" />
     </resultMap>
 
     <select id="selectClients" resultMap="ClientResultMap">
         SELECT username 
         FROM client;
+    </select>
+
+    <select id="getClientById" parameterType="String" resultMap="ClientResultMap">
+        SELECT * 
+        FROM client 
+        WHERE id = #{id}
     </select>
 
 </mapper>

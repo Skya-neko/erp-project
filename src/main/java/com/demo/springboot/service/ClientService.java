@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.springboot.dao.ClientDao;
-import com.demo.springboot.dao.model.Client;
+import com.demo.springboot.entity.Client;
 
 @Service
 public class ClientService {
