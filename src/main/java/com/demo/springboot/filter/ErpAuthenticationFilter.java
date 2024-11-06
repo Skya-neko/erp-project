@@ -64,7 +64,7 @@ public class ErpAuthenticationFilter extends OncePerRequestFilter {
             }
         } catch (Exception e) {
             logger.error(ExceptionUtils.getStackTrace(e));
-            new GalaxyAuthEntryPoint().commence(request, response, new BadCredentialsException(e.getMessage()));
+            new ErpAuthEntryPoint().commence(request, response, new BadCredentialsException(e.getMessage()));
         } finally {
             logger.info("============ End GalaxyAuthenticationFilter.doFilterInternal() ============");
         }

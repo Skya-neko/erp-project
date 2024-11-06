@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-public class GalaxyAuthEntryPoint implements AuthenticationEntryPoint {
-    private static final Logger logger = LogManager.getLogger(GalaxyAuthEntryPoint.class);
+public class ErpAuthEntryPoint implements AuthenticationEntryPoint {
+    private static final Logger logger = LogManager.getLogger(ErpAuthEntryPoint.class);
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e)
