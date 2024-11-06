@@ -10,6 +10,23 @@ function App() {
   const [userInfo, setUserInfo] = useState(_userInfo);
   const [userToken, setUserToken] = useState(null);
 
+  useEffect(() => {
+    initAxios();
+  }, [authStatus]);
+
+  // Auto Login
+  useEffect(() => {
+    const __token = sessionStorage.getItem("GALAXY_TOKEN");
+    if (!__token) {
+      setAuthStatus(0);
+      return;
+    }
+    setUserToken(__token);
+    setAuthStatus(1);
+    const __userInfo = sessionStorage.getItem("userInfo");
+    setUserInfo(JSON.parse(__userInfo));
+  }, []);
+
   const initAxios = async () => {
     // Add a request interceptor
     console.log("Init Axios")

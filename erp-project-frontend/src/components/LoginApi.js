@@ -26,5 +26,10 @@ export const execLogin = async (username, password) => {
         })
         .catch((err) => {
             console.log(err);
-        });
+        })
+        .finally(() => {
+            console.log("the http request is over");
+
+        })
+        ;
 };

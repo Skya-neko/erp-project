@@ -46,8 +46,9 @@ public class ClientController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("signIn")
-    public ResponseEntity<GenTokenResVo> onSignIn(@RequestBody GenTokenReqVO req, HttpServletRequest request) {
-        logger.info("============ Start SystemController.genApiToken() ============");
+    public ResponseEntity<GenTokenResVo> onSignIn(@RequestBody GenTokenReqVO req,
+            HttpServletRequest request) {
+        logger.info("============ Start SystemController.genApiToken()    ============");
         GenTokenResVo res = null;
         try {
             // 1. search user id is exist or not
@@ -55,7 +56,8 @@ public class ClientController {
             System.out.println(userDetails);
 
             // 2. check password
-            if (!passwordEncoder.matches(req.getClientSecret(), userDetails.getPassword())) {
+            if (!passwordEncoder.matches(req.getClientSecret(),
+                    userDetails.getPassword())) {
                 res = new GenTokenResVo();
                 res.setCode(HttpRespCode.Common.FAILURE.getCode());
                 res.setMsg(HttpRespCode.Common.FAILURE.getMsg());
@@ -95,23 +97,23 @@ public class ClientController {
         return ResponseEntity.ok(res);
     }
 
-    // @Autowired
-    // private ClientService clientService;
+    @Autowired
+    private ClientService clientService;
 
-    // @GetMapping(value = "/clients")
-    // public List<Client> getClients() throws Exception {
-    // List<Client> clients = null;
-    // try {
-    // System.out.println("hello");
-    // clientService.printAll();
-    // System.out.println("hello1");
-    // clients = clientService.getAllClients();
-    // } catch (Exception e) {
-    // e.printStackTrace();
+    @GetMapping(value = "/clients")
+    public List<Client> getClients() throws Exception {
+        List<Client> clients = null;
+        try {
+            System.out.println("hello");
+            clientService.printAll();
+            System.out.println("hello1");
+            clients = clientService.getAllClients();
+        } catch (Exception e) {
+            e.printStackTrace();
 
-    // }
+        }
 
-    // return clients;
-    // }
+        return clients;
+    }
 
 }
