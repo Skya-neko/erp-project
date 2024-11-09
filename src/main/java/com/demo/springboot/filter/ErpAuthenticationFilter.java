@@ -39,7 +39,7 @@ public class ErpAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        logger.info("============ Start GalaxyAuthenticationFilter.doFilterInternal() ============");
+        logger.info("============ Start ErpAuthenticationFilter.doFilterInternal() ============");
         try {
             // if it already had authorization
             logger.info("Authing... = " + SecurityContextHolder.getContext().getAuthentication());
@@ -66,7 +66,7 @@ public class ErpAuthenticationFilter extends OncePerRequestFilter {
             logger.error(ExceptionUtils.getStackTrace(e));
             new ErpAuthEntryPoint().commence(request, response, new BadCredentialsException(e.getMessage()));
         } finally {
-            logger.info("============ End GalaxyAuthenticationFilter.doFilterInternal() ============");
+            logger.info("============ End ErpAuthenticationFilter.doFilterInternal() ============");
         }
     }
 
